@@ -169,12 +169,19 @@
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
-                                @foreach ($errors->all() as $error )
-                                    <li>{{$error}}</li>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                     @endif
+
+                    @if (session('info'))
+                        <div class="alert alert-info">
+                            {!! session('info') !!}
+                        </div>
+                    @endif
+
                     <form action="{{ route('question.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -187,7 +194,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                            <textarea class="form-control" rows="4"  name="pertanyaan"></textarea>
+                            <textarea class="form-control" rows="4" name="pertanyaan"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
                     </form>
