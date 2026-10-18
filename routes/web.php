@@ -13,6 +13,9 @@ Route::get('/home',[HomeController::class,'index']);
 
 Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');
+        // baris baru
+Route::get('/question/store', [QuestionController::class, 'response'])
+    ->name('question.response');
 
 Route::get('dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');

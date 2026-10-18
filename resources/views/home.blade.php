@@ -176,11 +176,19 @@
                         </div>
                     @endif
 
+                    {{-- BAGIAN YANG DIUBAH: Alert session info + script redirect otomatis --}}
                     @if (session('info'))
-                        <div class="alert alert-info">
-                            {!! session('info') !!}
+                        <div class="alert alert-success">
+                            {{ session('info') }}
                         </div>
+
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = "{{ route('question.response') }}";
+                            }, 2000);
+                        </script>
                     @endif
+
 
                     <form action="{{ route('question.store') }}" method="POST">
                         @csrf
