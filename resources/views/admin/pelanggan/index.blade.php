@@ -365,27 +365,44 @@
                 {{-- Alert Pesan Sukses (Sesuai Desain Gambar) --}}
                 @if (session('success'))
                     <div class="alert alert-dismissible fade show p-3 mb-4 border-0 rounded-3"
+<<<<<<< HEAD
                          style="background-color: #d1e7dd; color: #0f5132;" role="alert">
                         <span class="fw-bold">{{ session('success') }}</span>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+=======
+                        style="background-color: #d1e7dd; color: #0f5132;" role="alert">
+                        <span class="fw-bold">{{ session('success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+>>>>>>> 0db440e (UTS 001)
                     </div>
                 @endif
 
                 {{-- Alert Pesan Error --}}
                 @if (session('error'))
                     <div class="alert alert-dismissible fade show p-3 mb-4 border-0 rounded-3"
+<<<<<<< HEAD
                          style="background-color: #f8d7da; color: #842029;" role="alert">
                         <span class="fw-bold">{{ session('error') }}</span>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+=======
+                        style="background-color: #f8d7da; color: #842029;" role="alert">
+                        <span class="fw-bold">{{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+>>>>>>> 0db440e (UTS 001)
                     </div>
                 @endif
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
                         <div class="table-responsive">
+
                             <table id="table-pelanggan" class="table table-centered table-nowrap mb-0 rounded">
+
                                 <thead class="thead-light">
                                     <tr>
+                                        <th class="border-0">Foto</th>
                                         <th class="border-0">First Name</th>
                                         <th class="border-0">Last Name</th>
                                         <th class="border-0">Birthday</th>
@@ -395,16 +412,39 @@
                                         <th class="border-0 rounded-end">Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    @foreach ($dataPelanggan as $item)
+                                    @forelse ($dataPelanggan as $item)
                                         <tr>
+                                            {{-- Foto Pelanggan --}}
+                                            <td>
+                                                @if (!empty($item->foto))
+                                                    <img src="{{ asset('storage/' . $item->foto) }}"
+                                                        alt="Foto {{ $item->first_name }}" class="pelanggan-photo"
+                                                        loading="lazy"
+                                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+
+                                                    <span class="pelanggan-photo-placeholder" style="display: none;">
+                                                        <i class="fas fa-user"></i>
+                                                    </span>
+                                                @else
+                                                    <span class="pelanggan-photo-placeholder">
+                                                        <i class="fas fa-user"></i>
+                                                    </span>
+                                                @endif
+                                            </td>
+
+                                            {{-- Informasi Pelanggan --}}
                                             <td>{{ $item->first_name }}</td>
                                             <td>{{ $item->last_name }}</td>
-                                            <td>{{ $item->birthday }}</td>
-                                            <td>{{ $item->gender }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->phone }}</td>
+                                            <td>{{ $item->birthday ?: '-' }}</td>
+                                            <td>{{ $item->gender ?: '-' }}</td>
+                                            <td>{{ $item->email ?: '-' }}</td>
+                                            <td>{{ $item->phone ?: '-' }}</td>
+
+                                            {{-- Tombol Aksi --}}
                                             <td>
+<<<<<<< HEAD
                                                 <a href="{{ route('pelanggan.edit', $item->pelanggan_id) }}"
                                                     class="btn btn-info btn-sm">
                                                     <svg class="icon icon-xs me-2" data-slot="icon" fill="none"
@@ -434,11 +474,55 @@
                                                         Hapus
                                                     </button>
                                                 </form>
+=======
+                                                <div class="d-flex align-items-center gap-1">
+
+                                                    {{-- Lihat CV --}}
+                                                    <a href="{{ route('pelanggan.cv', $item->pelanggan_id) }}"
+                                                        class="btn btn-success btn-sm" title="Lihat CV">
+                                                        <i class="fas fa-file-alt me-1"></i>
+                                                        CV Online
+                                                    </a>
+
+                                                    {{-- Edit Pelanggan --}}
+                                                    <a href="{{ route('pelanggan.edit', $item->pelanggan_id) }}"
+                                                        class="btn btn-info btn-sm text-white" title="Edit pelanggan">
+                                                        <i class="fas fa-edit me-1"></i>
+                                                        Edit
+                                                    </a>
+
+                                                    {{-- Hapus Pelanggan --}}
+                                                    <form
+                                                        action="{{ route('pelanggan.destroy', $item->pelanggan_id) }}"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            title="Hapus pelanggan">
+                                                            <i class="fas fa-trash-alt me-1"></i>
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+>>>>>>> 0db440e (UTS 001)
                                             </td>
                                         </tr>
-                                    @endforeach
-
+                                    @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center py-4">
+                                                <i class="fas fa-users fa-2x text-secondary mb-2"></i>
+                                                <p class="mb-0 text-secondary">
+                                                    Belum ada data pelanggan.
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
+
+
                             </table>
                         </div>
                     </div>

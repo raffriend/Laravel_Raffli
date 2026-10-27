@@ -28,17 +28,20 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $data['first_name'] = $request->first_name;
-        $data['last_name']  = $request->last_name;
-        $data['birthday']   = $request->birthday;
-        $data['gender']     = $request->gender;
-        $data['email']      = $request->email;
-        $data['phone']      = $request->phone;
+        // Tambahkan Validasi Form
+        $request->validate([
+            'first_name' => 'required|string|max:100',
+            'last_name'  => 'required|string|max:100',
+            'birthday'   => 'nullable|date|date_format:Y-m-d|before_or_equal:today', // Validasi tanggal yang benar
+            'gender'     => 'nullable|in:Male,Female,Other',
+            'email'      => 'required|email|unique:cv_2555301126,email',
+            'phone'      => 'nullable|string|max:20',
+        ]);
 
-        Pelanggan::create($data);
+        // Simpan data setelah lolos validasi
+        Pelanggan::create($request->all());
 
-        return redirect()->route('pelanggan.index')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('pelanggan.index')->with('success', 'Data pelanggan berhasil ditambahkan.');
     }
 
     /**
@@ -64,7 +67,7 @@ class PelangganController extends Controller
     public function update(Request $request, string $id)
     {
         $pelanggan_id = $id;
-        $pelanggan = Pelanggan::findOrFail($pelanggan_id);
+        $pelanggan    = Pelanggan::findOrFail($pelanggan_id);
 
         $pelanggan->first_name = $request->first_name;
         $pelanggan->last_name  = $request->last_name;
@@ -74,7 +77,7 @@ class PelangganController extends Controller
         $pelanggan->phone      = $request->phone;
 
         $pelanggan->save();
-        return redirect()->route('pelanggan.index')->with('success','perubahan Data Berhasil!');
+        return redirect()->route('pelanggan.index')->with('success', 'perubahan Data Berhasil!');
     }
 
     /**
@@ -85,6 +88,18 @@ class PelangganController extends Controller
         $pelanggan = Pelanggan::findOrFail($id);
 
         $pelanggan->delete();
+<<<<<<< HEAD
         return redirect()->route('pelanggan.index')->with('success','Data berhasil dihapus');
+=======
+        return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus');
+    }
+    public function showCv($id)
+    {
+        // Mengambil data pelanggan berdasarkan ID
+        $pelanggan = Pelanggan::findOrFail($id);
+
+        // Mengembalikan view (sesuaikan lokasi file Blade Anda)
+        return view('admin.pelanggan.cv', compact('pelanggan'));
+>>>>>>> 0db440e (UTS 001)
     }
 }

@@ -1,3 +1,5 @@
+
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,6 +11,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+        /**
+     * Run the migrations.
+     */
     // public function up(): void
     // {
     //     Schema::create('pelanggan', function (Blueprint $table) {
@@ -16,9 +21,9 @@ return new class extends Migration
     //         $table->timestamps();
     //     });
     // }
-    public function up()
+    public function up(): void
     {
-        Schema::create('pelanggan', function (Blueprint $table) {
+        Schema::create('cv_2555301126', function (Blueprint $table) {
             $table->increments('pelanggan_id');
             $table->string('first_name', 100);
             $table->string('last_name', 100);
@@ -29,11 +34,12 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelanggan');
+        Schema::dropIfExists('cv_2555301126');
     }
 };

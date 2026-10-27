@@ -13,12 +13,16 @@ Route::get('/', function () {
 Route::get('/home',[HomeController::class,'index']);
 
 Route::post('question/store', [QuestionController::class, 'store'])
-		->name('question.store');
-        // baris baru
+        ->name('question.store');
+
 Route::get('/question/store', [QuestionController::class, 'response'])
     ->name('question.response');
 
 Route::get('dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+
+// Tambahkan baris route CV ini di atas Route::resource
+Route::get('pelanggan/{id}/cv', [PelangganController::class, 'showCv'])
+        ->name('pelanggan.cv');
 
 Route::resource('pelanggan', PelangganController::class);
