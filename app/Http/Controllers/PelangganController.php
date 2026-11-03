@@ -88,18 +88,13 @@ class PelangganController extends Controller
         $pelanggan = Pelanggan::findOrFail($id);
 
         $pelanggan->delete();
-<<<<<<< HEAD
-        return redirect()->route('pelanggan.index')->with('success','Data berhasil dihapus');
-=======
         return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus');
     }
+
     public function showCv($id)
     {
-        // Mengambil data pelanggan berdasarkan ID
         $pelanggan = Pelanggan::findOrFail($id);
-
-        // Mengembalikan view (sesuaikan lokasi file Blade Anda)
-        return view('admin.pelanggan.cv', compact('pelanggan'));
->>>>>>> 0db440e (UTS 001)
+        return view('admin.pelanggan.cv', compact('pelanggan')); // Ditambah kata admin. di depannya
     }
+
 }
