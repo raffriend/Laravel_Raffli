@@ -15,7 +15,7 @@
                             </svg>
                         </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#">User</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
                 </ol>
             </nav>
             <div class="d-flex justify-content-between w-100 flex-wrap">
@@ -30,10 +30,14 @@
             </div>
         </div>
 
+        @if (session("success"))
+            <div class="alert alert-success">{!!session('success')!!}</div>
+        @endif
+
         <div class="row">
             <div class="col-12 mb-4">
 
-                {{-- Alert Pesan Sukses --}}
+                {{-- Alert Pesan Sukses (Sesuai Desain Gambar) --}}
                 @if (session('success'))
                     <div class="alert alert-dismissible fade show p-3 mb-4 border-0 rounded-3"
                         style="background-color: #d1e7dd; color: #0f5132;" role="alert">
@@ -71,7 +75,10 @@
                                 <tbody>
                                     @forelse ($dataUser as $item)
                                         <tr>
+                                            {{-- Nomor Urut --}}
                                             <td>{{ $loop->iteration }}</td>
+
+                                            {{-- Informasi User --}}
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
 
